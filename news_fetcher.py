@@ -6,7 +6,26 @@ from datetime import datetime, timedelta
 from dateutil import parser as date_parser
 import vertexai
 from vertexai.generative_models import GenerativeModel
+from langdetect import detect, LangDetectException
+from bs4 import BeautifulSoup
 import config
+
+
+def clean_html(text):
+    """Remove HTML tags from text."""
+    soup = BeautifulSoup(text, 'html.parser')
+    return soup.get_text(separator=' ', strip=True)
+
+
+def is_english(text):
+    """Check if text is in English."""
+    try:
+        # Combine title and summary for better detection
+        lang = detect(text)
+        return lang == 'en'
+    except LangDetectException:
+        # If detection fails, assume English
+        return True
 
 
 def fetch_articles_from_rss(feed_url, days_lookback=7):
@@ -26,10 +45,19 @@ def fetch_articles_from_rss(feed_url, days_lookback=7):
                 if pub_date.replace(tzinfo=None) < cutoff_date:
                     continue
 
+                # Clean HTML from summary
+                raw_summary = entry.get('summary', entry.get('description', ''))
+                clean_summary = clean_html(raw_summary)
+
+                # Check if article is in English
+                text_to_check = entry.get('title', '') + ' ' + clean_summary
+                if not is_english(text_to_check):
+                    continue
+
                 article = {
                     'title': entry.get('title', 'No title'),
                     'link': entry.get('link', ''),
-                    'summary': entry.get('summary', entry.get('description', '')),
+                    'summary': clean_summary,
                     'published': pub_date,
                     'source': feed.feed.get('title', feed_url)
                 }
@@ -83,16 +111,31 @@ Here are {len(articles)} recent articles:
 
 Your task:
 1. Identify the top {config.TOP_ARTICLES_TO_SEND} most valuable articles for someone interested in:
-   - Generative AI developments
-   - Data science trends and techniques
-   - Machine learning research and applications
-   - Practical AI/ML tools and frameworks
 
-2. Prioritize articles that are:
-   - Insightful and educational
-   - From reputable sources
-   - Contain substantial technical content (not just hype)
-   - Recent developments or unique perspectives
+   **HIGHEST PRIORITY** (select these first if available):
+   - AI in retail, e-commerce, or supply chain
+   - Google (Gemini, Vertex AI, Cloud AI)
+   - Claude or Anthropic
+   - Australian AI developments or companies
+
+   **MEDIUM PRIORITY**:
+   - Generative AI developments and breakthroughs
+   - Practical AI/ML tools and frameworks
+   - Enterprise AI applications
+   - Data science trends and techniques
+
+2. Quality criteria - prioritize articles that are:
+   - Likely to be widely discussed or trending
+   - Insightful with substantial technical content
+   - From reputable sources (not clickbait)
+   - Cover significant developments or practical applications
+   - Recent and newsworthy
+
+3. De-prioritize articles that are:
+   - Generic tutorials on basic topics
+   - Too promotional or marketing-focused
+   - Opinion pieces without substance
+   - Academic theory without practical relevance
 
 Return ONLY a comma-separated list of the article numbers (e.g., "3,7,12,15,22").
 Do not include any explanation, just the numbers."""

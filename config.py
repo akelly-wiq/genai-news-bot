@@ -29,6 +29,17 @@ NEWS_SOURCES = [
         'url': 'https://medium.com/feed/tag/data-science',
         'type': 'rss'
     },
+    {
+        'name': 'Medium - Retail Technology',
+        'url': 'https://medium.com/feed/tag/retail',
+        'type': 'rss'
+    },
+    # Google Cloud & AI
+    {
+        'name': 'Google Cloud Blog',
+        'url': 'https://cloudblog.withgoogle.com/rss/',
+        'type': 'rss'
+    },
     # Australian tech news
     {
         'name': 'InnovationAus - AI',
@@ -51,8 +62,25 @@ DAYS_LOOKBACK = 7              # Only consider articles from the past N days
 GEMINI_MODEL = os.getenv('SYNTHESIS_LLM_MODEL', 'gemini-2.5-flash')
 MAX_TOKENS = 1024
 
-# Keywords to prioritize
+# Keywords to prioritize (ordered by priority)
 PRIORITY_KEYWORDS = [
+    # High priority - specific to user interests
+    'australia',
+    'australian',
+    'google',
+    'gemini',
+    'vertex ai',
+    'claude',
+    'anthropic',
+    'retail',
+    'e-commerce',
+    'ecommerce',
+    'supply chain',
+    'customer experience',
+    'woolworths',
+    'supermarket',
+
+    # Medium priority - general AI topics
     'generative ai',
     'genai',
     'gen ai',

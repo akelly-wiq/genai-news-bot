@@ -1,9 +1,10 @@
 name: Weekly GenAI News Bot
 
 on:
-  # Run every Monday at 9 AM UTC (adjust timezone as needed)
+  # Run every Friday at 9 AM Sydney time (22:00 UTC Thursday during AEDT, 23:00 UTC during AEST)
+  # Using 22:00 UTC Thursday = 9 AM Friday AEDT / 8 AM Friday AEST
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: '0 22 * * 4'
 
   # Allow manual triggering for testing
   workflow_dispatch:

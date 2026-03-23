@@ -76,17 +76,21 @@ Edit `config.py` to customize:
 
 ## Schedule
 
-The bot runs every Monday at 9 AM UTC. To change the schedule, edit `.github/workflows/weekly-news.yml` and modify the cron expression:
+The bot runs every Friday at ~9 AM Sydney time:
+- **Summer (AEDT):** 9:00 AM Friday
+- **Winter (AEST):** 8:00 AM Friday
+
+To change the schedule, edit `.github/workflows/weekly-news.yml` and modify the cron expression:
 
 ```yaml
 schedule:
-  - cron: '0 9 * * 1'  # Min Hour Day Month Weekday
+  - cron: '0 22 * * 4'  # 22:00 UTC Thursday = 9 AM Friday AEDT
 ```
 
-Examples:
-- Every Sunday at 8 AM: `0 8 * * 0`
-- Every day at 6 PM: `0 18 * * *`
-- First day of month: `0 9 1 * *`
+Examples for Sydney time (adjust UTC time based on timezone):
+- Every Friday 9 AM AEDT: `0 22 * * 4` (Thu 22:00 UTC)
+- Every Monday 9 AM AEDT: `0 22 * * 0` (Sun 22:00 UTC)
+- Every day 6 PM AEDT: `0 7 * * *` (07:00 UTC)
 
 ## Cost
 

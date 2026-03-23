@@ -10,13 +10,13 @@ def format_message(articles):
     """Format articles into a Google Chat message."""
     if not articles:
         return {
-            "text": "No new articles found this week."
+            "text": "Hi team! 👋\n\nNo new articles found this week, but stay tuned for next Friday's update!"
         }
 
-    # Create card message
+    # Create card message with greeting
     header = {
         "title": f"Weekly GenAI & Data Science News - {datetime.now().strftime('%B %d, %Y')}",
-        "subtitle": f"Top {len(articles)} articles this week"
+        "subtitle": f"Happy Friday! Here's the latest AI news 🚀"
     }
 
     sections = []
