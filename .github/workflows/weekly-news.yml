@@ -1,0 +1,42 @@
+name: Weekly GenAI News Bot
+
+on:
+  # Run every Monday at 9 AM UTC (adjust timezone as needed)
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  send-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run news bot
+        env:
+          PROJECT_ID: gcp-wow-wiq-success-ai-dev
+          GOOGLE_CLOUD_PROJECT: gcp-wow-wiq-success-ai-dev
+          LOCATION: global
+          GOOGLE_CLOUD_LOCATION: global
+          SYNTHESIS_LLM_MODEL: gemini-2.5-flash
+          GOOGLE_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+        run: |
+          python main.py
