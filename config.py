@@ -11,44 +11,80 @@ GOOGLE_CLOUD_LOCATION = os.getenv('GOOGLE_CLOUD_LOCATION', 'global')
 # Google Chat Webhook
 GOOGLE_CHAT_WEBHOOK = os.getenv('GOOGLE_CHAT_WEBHOOK')
 
-# News Sources - RSS Feeds
+# News Sources - RSS Feeds (Credible publications only)
 NEWS_SOURCES = [
-    # Medium AI/ML tags
+    # Major AI News Outlets
     {
-        'name': 'Medium - Artificial Intelligence',
-        'url': 'https://medium.com/feed/tag/artificial-intelligence',
+        'name': 'MIT Technology Review - AI',
+        'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed',
         'type': 'rss'
     },
     {
-        'name': 'Medium - Machine Learning',
-        'url': 'https://medium.com/feed/tag/machine-learning',
+        'name': 'VentureBeat AI',
+        'url': 'https://venturebeat.com/category/ai/feed/',
         'type': 'rss'
     },
     {
-        'name': 'Medium - Data Science',
-        'url': 'https://medium.com/feed/tag/data-science',
+        'name': 'TechCrunch AI',
+        'url': 'https://techcrunch.com/category/artificial-intelligence/feed/',
         'type': 'rss'
     },
     {
-        'name': 'Medium - Retail Technology',
-        'url': 'https://medium.com/feed/tag/retail',
+        'name': 'The Verge AI',
+        'url': 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml',
         'type': 'rss'
     },
-    # Google Cloud & AI
+
+    # Company AI Blogs
+    {
+        'name': 'Google AI Blog',
+        'url': 'https://blog.google/technology/ai/rss/',
+        'type': 'rss'
+    },
     {
         'name': 'Google Cloud Blog',
         'url': 'https://cloudblog.withgoogle.com/rss/',
         'type': 'rss'
     },
-    # Australian tech news
     {
-        'name': 'InnovationAus - AI',
+        'name': 'OpenAI Blog',
+        'url': 'https://openai.com/blog/rss.xml',
+        'type': 'rss'
+    },
+    {
+        'name': 'Anthropic News',
+        'url': 'https://www.anthropic.com/news/rss.xml',
+        'type': 'rss'
+    },
+
+    # Data Science Publications (curated)
+    {
+        'name': 'Towards Data Science',
+        'url': 'https://towardsdatascience.com/feed',
+        'type': 'rss'
+    },
+    {
+        'name': 'KDnuggets',
+        'url': 'https://www.kdnuggets.com/feed',
+        'type': 'rss'
+    },
+
+    # Australian Tech News
+    {
+        'name': 'InnovationAus',
         'url': 'https://www.innovationaus.com/feed/',
         'type': 'rss'
     },
     {
         'name': 'Australian Financial Review - Technology',
         'url': 'https://www.afr.com/rss/technology',
+        'type': 'rss'
+    },
+
+    # Enterprise AI & Retail Tech
+    {
+        'name': 'AI Business',
+        'url': 'https://aibusiness.com/rss.xml',
         'type': 'rss'
     },
 ]

@@ -104,40 +104,48 @@ def rank_articles_with_gemini(articles):
         articles_text += f"   Summary: {article['summary'][:200]}...\n"
         articles_text += f"   Link: {article['link']}\n"
 
-    prompt = f"""You are analyzing news articles about data science, machine learning, and generative AI.
+    prompt = f"""You are analyzing news articles about AI, generative AI, data science, and agentic AI systems.
 
 Here are {len(articles)} recent articles:
 {articles_text}
 
 Your task:
-1. Identify the top {config.TOP_ARTICLES_TO_SEND} most valuable articles for someone interested in:
+1. **STRICT FILTERING** - ONLY select articles that are:
+   - Directly about AI, generative AI (GenAI), machine learning, data science, or agentic AI systems
+   - From credible news sources and publications (not blog spam or promotional content)
+   - Newsworthy with actual substance (not just tutorials or opinion pieces)
 
-   **HIGHEST PRIORITY** (select these first if available):
+   **REJECT articles about:**
+   - General technology not related to AI/ML/data science
+   - Clickbait, promotional content, or product marketing
+   - Basic tutorials or "how-to" guides
+   - Opinion pieces without technical depth
+   - Topics unrelated to AI/data science (blockchain, crypto, web dev, etc.)
+
+2. **PRIORITY RANKING** - From the qualifying articles, prioritize:
+
+   **HIGHEST PRIORITY**:
    - AI in retail, e-commerce, or supply chain
-   - Google (Gemini, Vertex AI, Cloud AI)
-   - Claude or Anthropic
+   - Google AI (Gemini, Vertex AI, Cloud AI platforms)
+   - Claude, Anthropic, or other leading LLMs
    - Australian AI developments or companies
+   - Agentic AI systems and frameworks
 
    **MEDIUM PRIORITY**:
-   - Generative AI developments and breakthroughs
-   - Practical AI/ML tools and frameworks
-   - Enterprise AI applications
-   - Data science trends and techniques
+   - Generative AI breakthroughs and new models
+   - Enterprise AI applications and case studies
+   - Practical AI/ML tools, frameworks, and techniques
+   - Data science innovations and methodologies
+   - AI research with practical implications
 
-2. Quality criteria - prioritize articles that are:
-   - Likely to be widely discussed or trending
-   - Insightful with substantial technical content
-   - From reputable sources (not clickbait)
-   - Cover significant developments or practical applications
-   - Recent and newsworthy
+3. **Quality criteria**:
+   - Credible, reputable source
+   - Substantial technical or business content
+   - Significant developments or practical applications
+   - Likely to be widely discussed in AI/data science community
 
-3. De-prioritize articles that are:
-   - Generic tutorials on basic topics
-   - Too promotional or marketing-focused
-   - Opinion pieces without substance
-   - Academic theory without practical relevance
-
-Return ONLY a comma-separated list of the article numbers (e.g., "3,7,12,15,22").
+Return ONLY a comma-separated list of up to {config.TOP_ARTICLES_TO_SEND} article numbers (e.g., "3,7,12,15,22").
+If fewer than {config.TOP_ARTICLES_TO_SEND} articles meet the strict criteria, return only those that qualify.
 Do not include any explanation, just the numbers."""
 
     try:
