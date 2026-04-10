@@ -11,44 +11,24 @@ GOOGLE_CLOUD_LOCATION = os.getenv('GOOGLE_CLOUD_LOCATION', 'global')
 # Google Chat Webhook
 GOOGLE_CHAT_WEBHOOK = os.getenv('GOOGLE_CHAT_WEBHOOK')
 
-# News Sources - RSS Feeds (Credible publications only)
+# News Sources - Active Medium Publications + Professional AI News
 NEWS_SOURCES = [
-    # Major AI News Outlets
+    # Medium Publications (User's Digest - Active only)
     {
-        'name': 'MIT Technology Review - AI',
-        'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed',
-        'type': 'rss'
-    },
-    {
-        'name': 'VentureBeat AI',
-        'url': 'https://venturebeat.com/category/ai/feed/',
-        'type': 'rss'
-    },
-    {
-        'name': 'TechCrunch AI',
-        'url': 'https://techcrunch.com/category/artificial-intelligence/feed/',
-        'type': 'rss'
-    },
-    {
-        'name': 'The Verge AI',
-        'url': 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml',
+        'name': 'Data Science Collective',
+        'url': 'https://medium.com/feed/data-science-collective',
         'type': 'rss'
     },
 
-    # Company AI Blogs
-    {
-        'name': 'Google AI Blog',
-        'url': 'https://blog.google/technology/ai/rss/',
-        'type': 'rss'
-    },
-    {
-        'name': 'Google Cloud Blog',
-        'url': 'https://cloudblog.withgoogle.com/rss/',
-        'type': 'rss'
-    },
+    # Professional AI News & Product Releases
     {
         'name': 'OpenAI Blog',
         'url': 'https://openai.com/blog/rss.xml',
+        'type': 'rss'
+    },
+    {
+        'name': 'Google Gemini Blog',
+        'url': 'https://blog.google/products/gemini/rss/',
         'type': 'rss'
     },
     {
@@ -56,42 +36,16 @@ NEWS_SOURCES = [
         'url': 'https://www.anthropic.com/news/rss.xml',
         'type': 'rss'
     },
-
-    # Data Science Publications (curated)
     {
-        'name': 'Towards Data Science',
-        'url': 'https://towardsdatascience.com/feed',
-        'type': 'rss'
-    },
-    {
-        'name': 'KDnuggets',
-        'url': 'https://www.kdnuggets.com/feed',
-        'type': 'rss'
-    },
-
-    # Australian Tech News
-    {
-        'name': 'InnovationAus',
-        'url': 'https://www.innovationaus.com/feed/',
-        'type': 'rss'
-    },
-    {
-        'name': 'Australian Financial Review - Technology',
-        'url': 'https://www.afr.com/rss/technology',
-        'type': 'rss'
-    },
-
-    # Enterprise AI & Retail Tech
-    {
-        'name': 'AI Business',
-        'url': 'https://aibusiness.com/rss.xml',
+        'name': 'DeepMind Blog',
+        'url': 'https://deepmind.google/blog/rss.xml',
         'type': 'rss'
     },
 ]
 
 # Bot Settings
 MAX_ARTICLES_TO_ANALYZE = 50  # Total articles to fetch from all sources
-TOP_ARTICLES_TO_SEND = 5      # Number of best articles to include in the message
+TOP_ARTICLES_TO_SEND = 10     # Number of best articles to include in the message
 DAYS_LOOKBACK = 7              # Only consider articles from the past N days
 
 # Gemini API Settings

@@ -104,48 +104,57 @@ def rank_articles_with_gemini(articles):
         articles_text += f"   Summary: {article['summary'][:200]}...\n"
         articles_text += f"   Link: {article['link']}\n"
 
-    prompt = f"""You are analyzing news articles about AI, generative AI, data science, and agentic AI systems.
+    prompt = f"""You are curating news for PROFESSIONAL, SEASONED data scientists and ML engineers who want to stay current with the field.
 
 Here are {len(articles)} recent articles:
 {articles_text}
 
 Your task:
-1. **STRICT FILTERING** - ONLY select articles that are:
-   - Directly about AI, generative AI (GenAI), machine learning, data science, or agentic AI systems
-   - From credible news sources and publications (not blog spam or promotional content)
-   - Newsworthy with actual substance (not just tutorials or opinion pieces)
+1. **STRICT FILTERING FOR PROFESSIONAL AUDIENCE** - ONLY select articles that are:
 
-   **REJECT articles about:**
-   - General technology not related to AI/ML/data science
-   - Clickbait, promotional content, or product marketing
-   - Basic tutorials or "how-to" guides
-   - Opinion pieces without technical depth
-   - Topics unrelated to AI/data science (blockchain, crypto, web dev, etc.)
+   **MUST INCLUDE (select these first):**
+   - New product releases (model launches, API updates, platform features, tool releases)
+   - Advanced techniques and methodologies (novel architectures, training methods, optimization strategies)
+   - Research breakthroughs with practical implications (papers, benchmarks, new capabilities)
+   - Production/MLOps developments (deployment tools, infrastructure, monitoring)
+   - Enterprise case studies with technical depth
+   - Significant industry announcements (acquisitions, partnerships, major initiatives)
 
-2. **PRIORITY RANKING** - From the qualifying articles, prioritize:
+   **MUST REJECT:**
+   - Basic tutorials ("Introduction to...", "Getting started with...", "What is...")
+   - Beginner explanations of established concepts
+   - Opinion pieces without technical substance
+   - Clickbait or sensationalized content
+   - Content clearly written for beginners or non-technical audiences
+   - Listicles without depth
+   - Content that explains basic concepts professionals already know
+
+2. **PRIORITY RANKING** - From qualifying professional-level articles, prioritize:
 
    **HIGHEST PRIORITY**:
-   - AI in retail, e-commerce, or supply chain
-   - Google AI (Gemini, Vertex AI, Cloud AI platforms)
-   - Claude, Anthropic, or other leading LLMs
-   - Australian AI developments or companies
-   - Agentic AI systems and frameworks
+   - New product/model releases (GPT-5, Gemini updates, Claude updates, new tools)
+   - Novel techniques and architectures with code/implementation details
+   - AI in retail, e-commerce, or supply chain (advanced applications)
+   - Google AI (Gemini, Vertex AI, Cloud AI platforms) - new features/releases
+   - Claude, Anthropic, or other leading LLMs - announcements and capabilities
+   - Production ML systems and MLOps innovations
+   - Research papers with practical applications
 
    **MEDIUM PRIORITY**:
-   - Generative AI breakthroughs and new models
-   - Enterprise AI applications and case studies
-   - Practical AI/ML tools, frameworks, and techniques
-   - Data science innovations and methodologies
-   - AI research with practical implications
+   - Enterprise AI case studies (with technical depth)
+   - Australian AI developments (professional-level)
+   - Advanced data science methodologies
+   - Agentic AI frameworks and systems
+   - Industry trends and analysis for practitioners
 
-3. **Quality criteria**:
-   - Credible, reputable source
-   - Substantial technical or business content
-   - Significant developments or practical applications
-   - Likely to be widely discussed in AI/data science community
+3. **Quality criteria for professionals**:
+   - Assumes reader has strong ML/AI background
+   - Contains technical depth, not surface-level explanations
+   - Newsworthy developments professionals need to know about
+   - Actionable insights or techniques they can apply
 
 Return ONLY a comma-separated list of up to {config.TOP_ARTICLES_TO_SEND} article numbers (e.g., "3,7,12,15,22").
-If fewer than {config.TOP_ARTICLES_TO_SEND} articles meet the strict criteria, return only those that qualify.
+If fewer than {config.TOP_ARTICLES_TO_SEND} articles meet the strict professional criteria, return only those that qualify.
 Do not include any explanation, just the numbers."""
 
     try:
